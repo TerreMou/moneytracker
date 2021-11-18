@@ -3,6 +3,7 @@ import VueRouter, {RouteConfig} from 'vue-router';
 import Records from '@/views/Records.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
+import Myself from '@/views/Myself.vue';
 
 
 Vue.use(VueRouter);
@@ -27,6 +28,11 @@ const routes: Array<RouteConfig> = [
     name: 'Statistics',
     component: Statistics
   },
+  {
+    path: '/myself',
+    name: 'Myself',
+    component: Myself
+  }
 ];
 
 const router = new VueRouter({
