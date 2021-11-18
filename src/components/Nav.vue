@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav">
     <router-link to="/labels">明细</router-link>
     |
     <router-link to="/statistics">统计</router-link>
@@ -15,5 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .nav {
+    border: 1px solid red;
+  }
 </style>

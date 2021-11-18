@@ -1,7 +1,7 @@
 <template>
-  <div>Myself.vue
-    <Nav/>
-  </div>
+  <Layout>
+    <p>我的</p>
+  </Layout>
 </template>
 
 <script lang="ts">

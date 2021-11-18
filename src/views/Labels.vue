@@ -1,7 +1,8 @@
 <template>
   <div>
-    Labels.vue
-    <Nav />
+    <Layout>
+      <p>首页明细</p>
+    </Layout>
   </div>
 </template>
 
