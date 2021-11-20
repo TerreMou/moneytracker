@@ -91,6 +91,7 @@ export default {
 .records-wrapper {
   display: flex;
   flex-direction: column-reverse;
+  min-height: 100vh;
 }
 
 header {
@@ -142,8 +143,10 @@ header {
 .tags {
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   margin: 16px 4px;
+  flex-grow: 1;
+
 
   > li {
     display: flex;
@@ -169,6 +172,7 @@ header {
     height: 50px;
     background: transparent;
     border: none;
+    color: #333;
 
     > .icon {
       width: 28px;
@@ -214,6 +218,7 @@ header {
     padding: 8px 4px;
     background: #d5d8dc;
 
+
     > button {
       border: none;
       border-radius: 6px;
@@ -221,6 +226,8 @@ header {
       display: flex;
       justify-content: center;
       align-items: center;
+      color: #333;
+      font-size:18px;
 
       &.delete {
         background: #ffffff;
