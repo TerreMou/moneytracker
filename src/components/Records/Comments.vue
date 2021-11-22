@@ -1,15 +1,21 @@
 <template>
   <div>
     <label class="comments">
-      <input type="text" placeholder="备注">
+      <input type="text" v-model="value" placeholder="备注">
     </label>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Comments'
-};
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component
+export default class Comments extends Vue {
+  value = '';
+}
+
+
 </script>
 
 <style lang="scss" scoped>
