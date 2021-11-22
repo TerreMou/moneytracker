@@ -1,31 +1,66 @@
 <template>
   <div class="number-pad">
-    <div class="output">100</div>
+    <div class="output">{{ display }}</div>
     <div class="buttons">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button class="delete">
+      <button @click=" inputContent ">1</button>
+      <button @click=" inputContent ">2</button>
+      <button @click=" inputContent ">3</button>
+      <button @click=" deleteContent " class="delete">
         <Icon name="delete"/>
       </button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button class="clear">清空</button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button class="finished">完成</button>
-      <button class="zero">0</button>
-      <button>.</button>
+      <button @click=" inputContent ">4</button>
+      <button @click=" inputContent ">5</button>
+      <button @click=" inputContent ">6</button>
+      <button @click=" clearContent " class="clear">清空</button>
+      <button @click=" inputContent ">7</button>
+      <button @click=" inputContent ">8</button>
+      <button @click=" inputContent ">9</button>
+      <button @click=" finishedContent " class="finished">完成</button>
+      <button @click=" inputContent " class="zero">0</button>
+      <button @click=" inputContent ">.</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'number-pad'
-};
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component
+export default class NumberPad extends Vue {
+  display = '0';
+
+  inputContent(event: MouseEvent): void {
+    const button = event.target as HTMLButtonElement;
+    const input = button.textContent as string;
+    if (this.display.length === 16) {return;}
+    if (this.display === '0') {
+      if ('0123456789'.indexOf(input) >= 0) {
+        this.display = input;
+      } else {
+        this.display += input;
+      }
+      return;
+    }
+    if (this.display.indexOf('.') >= 0 && input === '.') {return;}
+    this.display += input;
+  }
+
+  deleteContent(): void {
+    if (this.display.length === 1) {
+      this.display = '0';
+    } else {
+      this.display = this.display.slice(0, -1);
+    }
+  }
+
+  clearContent(): void {
+    this.display = '0';
+  }
+
+  finishedContent() {}
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -39,6 +74,7 @@ export default {
     padding: 9px 16px;
     text-align: right;
     color: $color-background;
+    height: 72px;
   }
 
   // Grid 布局
