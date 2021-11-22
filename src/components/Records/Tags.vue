@@ -1,25 +1,13 @@
 <template>
   <ul class="tags">
-    <li>
-      <Icon name="food"/>
-      食物
+    <li v-for="tag in dataSource" :key="tag"
+        :class=" {selected: selectedTags.indexOf(tag)>=0} "
+        @click="toggle(tag)">
+      {{ tag }}
     </li>
     <li>
-      <Icon name="shopping"/>
-      购物
-    </li>
-    <li>
-      <Icon name="bus"/>
-      出行
-    </li>
-    <li>
-      <Icon name="others"/>
-      其他
-    </li>
-    <li>
-      <button class="add">
+      <button @click="addTag" class="add">
         <Icon name="add"/>
-        新增
       </button>
     </li>
   </ul>
@@ -27,42 +15,72 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Tags'
-};
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue {
+  @Prop() dataSource: string[] | undefined;
+  selectedTags: string[] = [];
+
+  toggle(tag: string): void {
+    const index = this.selectedTags.indexOf(tag);
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(tag);
+    }
+  }
+
+  addTag() {
+    const name = window.prompt('请输入标签名');
+    if (name === '') {
+      window.alert('标签名不能为空');
+    } else if (this.dataSource) {
+      this.$emit('update:dataSource',[...this.dataSource, name]);
+    }
+  }
+
+}
+
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/style/helper.scss";
+
 .tags {
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: flex-start;
-  margin: 16px 4px;
+  margin: 12px 4px;
   flex-grow: 1;
-
+  padding: 12px;
+  font-size: 14px;
 
   > li {
+    height: 48px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
-    width: 50px;
-    height: 50px;
+    line-height: 20px;
+    padding: 0 16px;
+    margin-right: 20px;
+    margin-top: 4px;
+    border-radius: 50%;
+    background: #d5d8dc;
 
-    > .icon {
-      width: 28px;
-      height: 28px;
+    &.selected {
+      background: $color-highlight;
+      color: white;
     }
+
   }
 
   .add {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
     background: transparent;
     border: none;
     color: #333;
