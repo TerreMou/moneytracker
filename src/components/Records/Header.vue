@@ -19,31 +19,32 @@
 
 </template>
 
-<script lang="js">
-export default {
-  name: 'Header',
-  data(){
-    return {
-      type: '-' // ‘-’表示支出，‘+’表示收入
-    };
-  },
-  methods: {
-    goBack() {
-      this.$router.go(-1);
-      console.log(this);
-    },
-    selectType(type) {
-      if (type !== '-' && type !== '+') {
-        throw new Error('type is unknown');
-      }
-      this.type = type;
-    },
+<script lang="ts">
+
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component
+export default class Types extends Vue {
+  type = '-'; // ‘-’表示支出，‘+’表示收入
+
+  selectType(type: string): void {
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is unknown');
+    }
+    this.type = type;
   }
-};
+
+  goBack(): void {
+    this.$router.go(-1);
+    console.log(this);
+  }
+
+}
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
+@import "../../assets/style/helper.scss";
 
 header {
   padding-top: 2px;
