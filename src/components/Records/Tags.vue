@@ -20,7 +20,7 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
-  @Prop() dataSource: string[] | undefined;
+  @Prop(Array) dataSource: string[] | undefined;
   selectedTags: string[] = [];
 
   toggle(tag: string): void {
@@ -30,9 +30,10 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
+    this.$emit('update:value', this.selectedTags)
   }
 
-  addTag() {
+  addTag():void {
     const name = window.prompt('请输入标签名');
     if (name === '') {
       window.alert('标签名不能为空');
