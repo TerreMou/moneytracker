@@ -4,7 +4,7 @@
     <Comments @update:value="onUpdateComments"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="recordAll.type"/>
-    {{ recordAll }}
+    {{ recordList }}
     <Title/>
   </div>
 </template>
@@ -23,6 +23,7 @@ type RecordAll = {
   tags: string[]
   comments: string
   amount: number
+  createdTime?: Date
 }
 
 @Component({
@@ -30,7 +31,7 @@ type RecordAll = {
 })
 export default class Records extends Vue {
   tags = ['食物', '购物', '出行', '其他'];
-  recordList: RecordAll[] = [];
+  recordList: RecordAll[] = JSON.parse(window.localStorage.getItem('recordList') || '[]')
   recordAll: RecordAll = {type: '-', tags: [], comments: '', amount: 0};
 
   onUpdateTags(value: string[]): void {
@@ -46,9 +47,9 @@ export default class Records extends Vue {
   }
 
   saveRecords():void {
-    const recordCopy = JSON.parse(JSON.stringify((this.recordAll)))
+    const recordCopy: RecordAll = JSON.parse(JSON.stringify((this.recordAll)))
+    recordCopy.createdTime = new Date();
     this.recordList.push(recordCopy);
-    console.log(this.recordList);
   }
 
   @Watch('recordList')
