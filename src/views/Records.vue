@@ -1,7 +1,9 @@
 <template>
   <div class="records-wrapper">
-    <Number-pad @update:value="onUpdateAmount" @submit="saveRecords" @back="goBack"/>
-    <Comments @update:value="onUpdateComments"/>
+    <Number-pad @update:value="onUpdateAmount"
+                @submit="saveRecords"
+                @back="goBack"/>
+    <Comments placeholder="请输入备注" @update:value="onUpdateComments"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="record.type"/>
     <Title/>

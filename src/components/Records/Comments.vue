@@ -1,18 +1,23 @@
 <template>
   <div>
     <label class="comments">
-      <input type="text" v-model="value" placeholder="备注">
+      <span class="field-name">{{ this.fieldName }}</span>
+      <input type="text" v-model="value" :placeholder="this.placeholder">
     </label>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Comments extends Vue {
   value = '';
+
+  @Prop() fieldName?: string;
+  @Prop() placeholder?: string;
+
   @Watch('value')
   onValueChanged(value:string):void {
     this.$emit('update:value', value)
@@ -26,13 +31,17 @@ export default class Comments extends Vue {
 .comments {
   display: flex;
   font-size: 14px;
+  align-items: center;
+  background: white;
 
   > input {
     border: none;
     height: 40px;
     flex-grow: 1;
     padding-left: 16px;
-    background: #f8f9f9;
+  }
+  .field-name {
+    padding-left: 16px;
   }
 }
 

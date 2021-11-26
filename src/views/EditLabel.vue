@@ -1,6 +1,10 @@
 <template>
   <Layout>
-    编辑标签
+    <div>
+      <Icon name="goBack"/>
+      <span>编辑标签</span>
+      <Comments field-name="标签名" placeholder="请输入标签名"/>
+    </div>
   </Layout>
 </template>
 
@@ -8,8 +12,10 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import tagListModel from '@/model/tagListModel';
-
-@Component
+import Comments from '@/components/Records/Comments.vue';
+@Component({
+  components: {Comments}
+})
 export default class EditLabel extends Vue {
   created() {
     const id = this.$route.params.id;
