@@ -1,6 +1,6 @@
 <template>
   <div class="records-wrapper">
-    <Number-pad @update:value="onUpdateAmount" @submit="saveRecords"/>
+    <Number-pad @update:value="onUpdateAmount" @submit="saveRecords" @back="goBack"/>
     <Comments @update:value="onUpdateComments"/>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="record.type"/>
@@ -16,23 +16,17 @@ import Tags from '@/components/Records/Tags.vue';
 import Types from '@/components/Records/Types.vue';
 import Title from '@/components/Records/Title.vue';
 import {Component, Watch} from 'vue-property-decorator';
-import model from '@/model';
+import recordListModel from '@/model/recordListModel';
+import tagListModel from '@/model/tagListModel';
 
-type RecordItem = {
-  type: string
-  comments: string
-  amount: number
-  createdTime?: Date
-  tags: string[]
-}
-
-const recordList = model.fetch();
+const recordList = recordListModel.fetch();
+const tagList = tagListModel.fetch();
 
 @Component({
   components: {Types, Title, Tags, Comments, NumberPad}
 })
 export default class Records extends Vue {
-  tags = ['食物', '购物', '出行', '其他'];
+  tags = tagList;
   recordList = recordList;
   record: RecordItem = {
     type: '-', tags: [], comments: '', amount: 0
@@ -51,14 +45,18 @@ export default class Records extends Vue {
   }
 
   saveRecords(): void {
-    const recordCopy: RecordItem = model.clone(this.record)
+    const recordCopy: RecordItem = recordListModel.clone(this.record)
     recordCopy.createdTime = new Date();
     this.recordList.push(recordCopy);
   }
 
+  goBack(): void {
+    this.$router.go(-1);
+  }
+
   @Watch('recordList')
   onRecordListChanged(): void {
-    model.save(this.recordList);
+    recordListModel.save(this.recordList);
   }
 }
 

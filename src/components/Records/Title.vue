@@ -15,7 +15,6 @@ import {Component} from 'vue-property-decorator';
 export default class Title extends Vue {
   goBack(): void {
     this.$router.go(-1);
-    console.log(this);
   }
 }
 </script>
