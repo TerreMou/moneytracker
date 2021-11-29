@@ -56,10 +56,10 @@ export default class Tags extends Vue {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  margin: 12px 4px;
   flex-grow: 1;
-  padding: 12px;
+  padding: 16px;
   font-size: 14px;
+  background: white;
 
   > li {
     height: 48px;

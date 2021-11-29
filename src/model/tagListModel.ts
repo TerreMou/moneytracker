@@ -1,4 +1,4 @@
-const localStorageKeyName = 'tagListList';
+const localStorageKeyName = 'tagListModel';
 
 type Tag = {
   id: string;

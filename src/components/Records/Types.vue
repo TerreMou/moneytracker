@@ -37,6 +37,7 @@ export default class Types extends Vue {
   align-items: center;
   text-align: center;
   padding: 10px 0;
+  background: white;
 
   > li {
     border: 1px solid #020202;

@@ -1,9 +1,11 @@
 <template>
   <Layout>
-    <div>
-      <Icon name="goBack"/>
-      <span>编辑标签</span>
-      <Comments field-name="标签名" placeholder="请输入标签名"/>
+    <nav-bar>编辑标签</nav-bar>
+    <div class="formItem-wrapper">
+      <FormItem field-name="标签名" placeholder="请输入标签名"/>
+    </div>
+    <div class="button-wrapper">
+      <Button>删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -12,20 +14,23 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import tagListModel from '@/model/tagListModel';
-import Comments from '@/components/Records/Comments.vue';
+import FormItem from '@/components/Records/FormItem.vue';
+import Button from '@/components/Button.vue';
+import NavBar from '@/components/NavBar.vue';
+
 @Component({
-  components: {Comments}
+  components: {NavBar, Button, FormItem}
 })
 export default class EditLabel extends Vue {
-  created() {
+  created(): void {
     const id = this.$route.params.id;
     tagListModel.fetch();
     const tags = tagListModel.data;
-    const tag = tags.filter( tag => tag.id === id)[0];
+    const tag = tags.filter(tag => tag.id === id)[0];
     if (tag) {
-      console.log(tag)
+      console.log(tag);
     } else {
-      this.$router.replace('/404')
+      this.$router.replace('/404');
     }
 
   }
@@ -33,5 +38,13 @@ export default class EditLabel extends Vue {
 </script>
 
 <style lang="scss" scoped>
-
+.formItem-wrapper {
+  background: white;
+  margin-top: 8px;
+}
+.button-wrapper {
+  text-align: center;
+  padding: 16px;
+  margin-top: 28px;
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <label class="comments">
+    <label class="formItem">
       <span class="field-name">{{ this.fieldName }}</span>
-      <input type="text" v-model="value" :placeholder="this.placeholder">
+      <input type="text" v-model="value" :placeholder="placeholder">
     </label>
   </div>
 </template>
@@ -12,7 +12,7 @@ import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
-export default class Comments extends Vue {
+export default class FormItem extends Vue {
   value = '';
 
   @Prop() fieldName?: string;
@@ -28,17 +28,17 @@ export default class Comments extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.comments {
+.formItem {
   display: flex;
-  font-size: 14px;
+  font-size: 16px;
   align-items: center;
-  background: white;
 
   > input {
     border: none;
     height: 40px;
     flex-grow: 1;
     padding-left: 16px;
+    background: transparent;
   }
   .field-name {
     padding-left: 16px;

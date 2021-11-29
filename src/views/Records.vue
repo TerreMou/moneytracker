@@ -3,29 +3,31 @@
     <Number-pad @update:value="onUpdateAmount"
                 @submit="saveRecords"
                 @back="goBack"/>
-    <Comments placeholder="请输入备注" @update:value="onUpdateComments"/>
+    <div class="form-wrapper">
+      <FormItem placeholder="请输入备注" @update:value="onUpdateComments"/>
+    </div>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     <Types :value.sync="record.type"/>
-    <Title/>
+    <NavBar>记账</NavBar>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import NumberPad from '@/components/Records/Number-pad.vue';
-import Comments from '@/components/Records/Comments.vue';
+import FormItem from '@/components/Records/FormItem.vue';
 import Tags from '@/components/Records/Tags.vue';
 import Types from '@/components/Records/Types.vue';
-import Title from '@/components/Records/Title.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import recordListModel from '@/model/recordListModel';
 import tagListModel from '@/model/tagListModel';
+import NavBar from '@/components/NavBar.vue';
 
 const recordList = recordListModel.fetch();
 const tagList = tagListModel.fetch();
 
 @Component({
-  components: {Types, Title, Tags, Comments, NumberPad}
+  components: {NavBar, Types, Tags, FormItem, NumberPad}
 })
 export default class Records extends Vue {
   tags = tagList;
@@ -72,5 +74,7 @@ export default class Records extends Vue {
   flex-direction: column-reverse;
   min-height: 100vh;
 }
-
+.form-wrapper {
+  padding: 4px 0;
+}
 </style>

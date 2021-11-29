@@ -1,9 +1,12 @@
 <template>
-  <div class="title">
+  <div class="nav-bar">
     <div class="backspace" @click="goBack">
       <Icon name="goBack"/>
     </div>
-    <div class="pageTitle">记账</div>
+    <div class="pageTitle">
+      <slot/>
+    </div>
+    <div class="right-placeholder"></div>
   </div>
 </template>
 
@@ -20,27 +23,35 @@ export default class Title extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  position: relative;
+@import "../assets/style/helper.scss";
+
+.nav-bar {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 4px;
+  text-align: center;
+  padding: 12px 8px;
+  background: $color-background;
+  justify-content: space-between;
+  color: white;
 
   > .backspace {
+    height: 28px;
+    width: 28px;
+
     > .icon {
       height: 28px;
       width: 28px;
     }
   }
+
   > .pageTitle {
-    position: absolute;
-    width: 60px;
-    top: 0;
-    left: 50%;
-    margin-left: -30px;
     font-size: 1.2em;
-    text-align: center;
+  }
+
+  > .right-placeholder {
+    height: 28px;
+    width: 28px;
   }
 }
 </style>

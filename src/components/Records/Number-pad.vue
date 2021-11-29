@@ -80,6 +80,7 @@ export default class NumberPad extends Vue {
     text-align: right;
     color: $color-background;
     height: 72px;
+    background: white;
   }
 
   // Grid 布局
