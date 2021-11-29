@@ -49,9 +49,7 @@ export default class Records extends Vue {
   }
 
   saveRecords(): void {
-    const recordCopy: RecordItem = recordListModel.clone(this.record)
-    recordCopy.createdTime = new Date();
-    this.recordList.push(recordCopy);
+    recordListModel.create(this.record);
   }
 
   goBack(): void {
@@ -60,7 +58,7 @@ export default class Records extends Vue {
 
   @Watch('recordList')
   onRecordListChanged(): void {
-    recordListModel.save(this.recordList);
+    recordListModel.save();
   }
 }
 
@@ -74,6 +72,7 @@ export default class Records extends Vue {
   flex-direction: column-reverse;
   min-height: 100vh;
 }
+
 .form-wrapper {
   padding: 4px 0;
 }
