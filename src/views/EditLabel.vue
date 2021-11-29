@@ -2,7 +2,7 @@
   <Layout>
     <nav-bar>编辑标签</nav-bar>
     <div class="formItem-wrapper">
-      <FormItem field-name="标签名" placeholder="请输入标签名"/>
+      <FormItem :value="tag.name" field-name="标签名" placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
       <Button>删除标签</Button>
@@ -22,13 +22,15 @@ import NavBar from '@/components/NavBar.vue';
   components: {NavBar, Button, FormItem}
 })
 export default class EditLabel extends Vue {
+  tag?: {id: string, name: string} = undefined;
+
   created(): void {
     const id = this.$route.params.id;
     tagListModel.fetch();
     const tags = tagListModel.data;
     const tag = tags.filter(tag => tag.id === id)[0];
     if (tag) {
-      console.log(tag);
+      this.tag = tag;
     } else {
       this.$router.replace('/404');
     }
