@@ -18,18 +18,15 @@ import NumberPad from '@/components/Records/Number-pad.vue';
 import FormItem from '@/components/Records/FormItem.vue';
 import Tags from '@/components/Records/Tags.vue';
 import Types from '@/components/Records/Types.vue';
-import {Component, Watch} from 'vue-property-decorator';
-import recordListModel from '@/model/recordListModel';
+import {Component} from 'vue-property-decorator';
 import NavBar from '@/components/NavBar.vue';
-
-const recordList = recordListModel.fetch();
 
 @Component({
   components: {NavBar, Types, Tags, FormItem, NumberPad}
 })
 export default class Records extends Vue {
   tags = window.tagList;
-  recordList = recordList;
+  recordList = window.recordList;
   record: RecordItem = {
     type: '-', tags: [], comments: '', amount: 0
   };
@@ -47,16 +44,11 @@ export default class Records extends Vue {
   }
 
   saveRecords(): void {
-    recordListModel.create(this.record);
+    window.createRecord(this.record);
   }
 
   goBack(): void {
     this.$router.go(-1);
-  }
-
-  @Watch('recordList')
-  onRecordListChanged(): void {
-    recordListModel.save();
   }
 }
 

@@ -21,9 +21,14 @@ type TagListModel = {
 
 // 注意 Window 大写
 interface Window {
+  // tag store
   tagList: Tag[];
   findTag: (id: string) => Tag | undefined;
   createTag: (name: string) => void;
   removeTag: (id: string) => boolean;
   updateTag: TagListModel['update']
+
+  // record store
+  recordList: RecordItem[];
+  createRecord: (record: RecordItem) => void;
 }
