@@ -5,3 +5,21 @@ type RecordItem = {
   createdTime?: Date
   tags: string[]
 }
+type Tag = {
+  id: string;
+  name: string;
+}
+
+type TagListModel = {
+  data: Tag[];
+  fetch: () => Tag[];
+  create: (name: string) => 'success' | 'duplicated'; // 联合类型
+  update: (id: string, name: string) => 'success' | 'duplicated' | 'not_found'
+  remove: (id: string) => boolean
+  save: () => void
+}
+
+// 注意 Window 大写
+interface Window {
+  tagList: Tag[];
+}

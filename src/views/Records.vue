@@ -24,13 +24,12 @@ import tagListModel from '@/model/tagListModel';
 import NavBar from '@/components/NavBar.vue';
 
 const recordList = recordListModel.fetch();
-const tagList = tagListModel.fetch();
 
 @Component({
   components: {NavBar, Types, Tags, FormItem, NumberPad}
 })
 export default class Records extends Vue {
-  tags = tagList;
+  tags = window.tagList;
   recordList = recordList;
   record: RecordItem = {
     type: '-', tags: [], comments: '', amount: 0
