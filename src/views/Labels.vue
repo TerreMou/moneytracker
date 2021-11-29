@@ -10,7 +10,7 @@
     </div>
 
     <div class="addTag-wrapper">
-      <Button @click="addTag" class="addTag">新建标签</Button>
+      <Button @click="createTag" class="addTag">新建标签</Button>
     </div>
   </Layout>
 </template>
@@ -27,19 +27,14 @@ import Button from '@/components/Button.vue';
 export default class Labels extends Vue {
   tags = window.tagList;
 
-  addTag(): void {
+  createTag(): void {
     const name = window.prompt('请输入标签名');
     if (name === null) {return;} // 当用户直接点击取消的话，prompt 返回一个 null
     if (name === '') {
       window.alert('标签名不能为空');
       return;
     } else if (name) {
-      const message = tagListModel.create(name);
-      if (message === 'duplicated') {
-        window.alert('标签名重复了')
-      } else if (message === 'success') {
-        window.alert('标签添加成功')
-      }
+      window.createTag(name);
     }
   }
 

@@ -20,7 +20,6 @@ import Tags from '@/components/Records/Tags.vue';
 import Types from '@/components/Records/Types.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import recordListModel from '@/model/recordListModel';
-import tagListModel from '@/model/tagListModel';
 import NavBar from '@/components/NavBar.vue';
 
 const recordList = recordListModel.fetch();
