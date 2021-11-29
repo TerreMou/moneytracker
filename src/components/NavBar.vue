@@ -15,9 +15,9 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
 @Component
-export default class Title extends Vue {
+export default class NavBar extends Vue {
   goBack(): void {
-    this.$router.go(-1);
+    this.$router.back();
   }
 }
 </script>

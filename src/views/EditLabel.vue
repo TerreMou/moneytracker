@@ -7,7 +7,7 @@
                 field-name="标签名" placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
-      <Button>删除标签</Button>
+      <Button @click="removeTag">删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -40,6 +40,11 @@ export default class EditLabel extends Vue {
   updateTag(name: string):void {
     if (this.tag) {
       tagListModel.update(this.tag.id, name)
+    }
+  }
+  removeTag():void {
+    if (this.tag) {
+      tagListModel.remove(this.tag.id);
     }
   }
 }
