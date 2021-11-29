@@ -19,8 +19,7 @@ type TagListModel = {
   save: () => void
 }
 
-// 注意 Window 大写
-interface Window {
+type store = {
   // tag store
   tagList: Tag[];
   findTag: (id: string) => Tag | undefined;
@@ -31,4 +30,5 @@ interface Window {
   // record store
   recordList: RecordItem[];
   createRecord: (record: RecordItem) => void;
-}
+};
+
