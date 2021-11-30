@@ -10,25 +10,14 @@ type Tag = {
   name: string;
 }
 
-type TagListModel = {
-  data: Tag[];
-  fetch: () => Tag[];
-  create: (name: string) => 'success' | 'duplicated'; // 联合类型
-  update: (id: string, name: string) => 'success' | 'duplicated' | 'not_found'
-  remove: (id: string) => boolean
-  save: () => void
-}
-
-type store = {
+type tagStore = {
   // tag store
   tagList: Tag[];
+  fetchTags: () => Tag[]
   findTag: (id: string) => Tag | undefined;
   createTag: (name: string) => void;
   removeTag: (id: string) => boolean;
-  updateTag: TagListModel['update']
-
-  // record store
-  recordList: RecordItem[];
-  createRecord: (record: RecordItem) => void;
-};
+  updateTag: TagListModel['update'];
+  saveTags: () => void;
+}
 

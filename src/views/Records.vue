@@ -6,7 +6,7 @@
     <div class="form-wrapper">
       <FormItem placeholder="请输入备注" @update:value="onUpdateComments"/>
     </div>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Tags/>
     <Types :value.sync="record.type"/>
     <NavBar>记账</NavBar>
   </div>
@@ -26,15 +26,10 @@ import store from '@/store/index2';
   components: {NavBar, Types, Tags, FormItem, NumberPad}
 })
 export default class Records extends Vue {
-  tags = store.tagList;
   recordList = store.recordList;
   record: RecordItem = {
     type: '-', tags: [], comments: '', amount: 0
   };
-
-  onUpdateTags(value: string[]): void {
-    this.record.tags = value;
-  }
 
   onUpdateComments(value: string): void {
     this.record.comments = value;
