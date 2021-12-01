@@ -2,7 +2,7 @@
   <Layout>
     <nav-bar>编辑标签</nav-bar>
     <div class="formItem-wrapper">
-      <FormItem :value="tag.name"
+      <FormItem :value="currentTag.name"
                 @update:value="updateTag"
                 field-name="标签名" placeholder="请输入标签名"/>
     </div>
@@ -23,7 +23,7 @@ import NavBar from '@/components/NavBar.vue';
   components: {NavBar, Button, FormItem},
 })
 export default class EditLabel extends Vue {
-  get tag(): Tag {
+  get currentTag(): Tag {
     return this.$store.state.currentTag;
   }
 
@@ -31,24 +31,21 @@ export default class EditLabel extends Vue {
     const id = this.$route.params.id;
     this.$store.commit('fetchTags');
     this.$store.commit('setCurrentTag', id);
-    if (!this.tag) {
-      console.log('no tag');
+    if (!this.currentTag) {
       this.$router.replace('/404');
-    } else {
-      console.log('has tag');
     }
   }
 
   updateTag(name: string): void {
-    if (this.tag) {
+    if (this.currentTag) {
       this.$store.commit('updateTag',
-          {id: this.tag.id, name});
+          {id: this.currentTag.id, name});
     }
   }
 
   removeTag(): void {
-    if (this.tag) {
-      this.$store.commit('removeTag', this.tag.id);
+    if (this.currentTag) {
+      this.$store.commit('removeTag', this.currentTag.id);
     }
   }
 }
