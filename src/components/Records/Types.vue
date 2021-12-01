@@ -1,9 +1,9 @@
 <template>
   <ul class="types">
-    <li :class="value === '-' && 'selected'"
+    <li :class="{[classPrefix+'-item']: classPrefix, selected: value==='-'}"
         @click="selectType('-')">支出
     </li>
-    <li :class="value === '+' && 'selected'"
+    <li :class="{[classPrefix+'-item']: classPrefix, selected: value==='+'}"
         @click="selectType('+')">收入
     </li>
   </ul>
@@ -17,11 +17,13 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class Types extends Vue {
   @Prop(String) readonly value!: string;
+  @Prop(String) classPrefix?: string;
+
   selectType(value: string): void {
     if (value !== '-' && value !== '+') {
       throw new Error('type is unknown');
     }
-    this.$emit('update:value', value)
+    this.$emit('update:value', value);
   }
 
 
@@ -32,22 +34,26 @@ export default class Types extends Vue {
 @import "../../assets/style/helper.scss";
 
 .types {
+  background: #f5f5f5;
   display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
-  padding: 10px 0;
-  background: white;
-
+  font-size: 1.2em;
   > li {
-    border: 1px solid #020202;
-    border-radius: 3px;
-    width: 20%;
-
-    &.selected {
+    width: 50%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &.selected::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
       background: $color-highlight;
     }
   }
 }
-
 </style>
