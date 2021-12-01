@@ -19,26 +19,22 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
+import {mixins} from 'vue-class-component';
+import {TagHelper} from '@/mixins/TagHelper';
+const tagHelper = require('@/mixins/TagHelper');
 
 @Component({
-  components: {Button}
-})
-export default class Labels extends Vue {
-  // TODO
-  tags = []; // store.tagList;
-
-  createTag(): void {
-    const name = window.prompt('请输入标签名');
-    if (name === null) {return;} // 当用户直接点击取消的话，prompt 返回一个 null
-    if (name === '') {
-      window.alert('标签名不能为空');
-      return;
-    } else if (name) {
-      // TODO
-      // store.createTag(name);
+  components: {Button},
+  computed: {
+    tags() {
+      return this.$store.state.tagList;
     }
   }
-
+})
+export default class Labels extends mixins(TagHelper) {
+  beforeCreate(): void {
+    this.$store.commit('fetchTags');
+  }
 }
 </script>
 
@@ -65,6 +61,7 @@ export default class Labels extends Vue {
     margin-right: 16px;
   }
 }
+
 .addTag-wrapper {
   text-align: center;
   padding: 16px;
