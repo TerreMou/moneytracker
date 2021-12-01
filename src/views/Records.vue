@@ -23,16 +23,15 @@ import NavBar from '@/components/NavBar.vue';
 
 @Component({
   components: {NavBar, Types, Tags, FormItem, NumberPad},
-  computed: {
-    recordList() {
-      return this.$store.state.recordList;
-    }
-  }
 })
 export default class Records extends Vue {
   record: RecordItem = {
     type: '-', tags: [], comments: '', amount: 0
   };
+
+  get recordList(): RecordItem[] {
+    return this.$store.state.recordList;
+  }
 
   created(): void {
     this.$store.commit('fetchRecords')
