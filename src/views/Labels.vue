@@ -19,13 +19,13 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
-import store from '@/store/index2';
 
 @Component({
   components: {Button}
 })
 export default class Labels extends Vue {
-  tags = store.tagList;
+  // TODO
+  tags = []; // store.tagList;
 
   createTag(): void {
     const name = window.prompt('请输入标签名');
@@ -34,7 +34,8 @@ export default class Labels extends Vue {
       window.alert('标签名不能为空');
       return;
     } else if (name) {
-      store.createTag(name);
+      // TODO
+      // store.createTag(name);
     }
   }
 

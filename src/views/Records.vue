@@ -20,16 +20,23 @@ import Tags from '@/components/Records/Tags.vue';
 import Types from '@/components/Records/Types.vue';
 import {Component} from 'vue-property-decorator';
 import NavBar from '@/components/NavBar.vue';
-import store from '@/store/index2';
 
 @Component({
-  components: {NavBar, Types, Tags, FormItem, NumberPad}
+  components: {NavBar, Types, Tags, FormItem, NumberPad},
+  computed: {
+    recordList() {
+      return this.$store.state.recordList;
+    }
+  }
 })
 export default class Records extends Vue {
-  recordList = store.recordList;
   record: RecordItem = {
     type: '-', tags: [], comments: '', amount: 0
   };
+
+  created(): void {
+    this.$store.commit('fetchRecords')
+  }
 
   onUpdateComments(value: string): void {
     this.record.comments = value;
@@ -40,7 +47,7 @@ export default class Records extends Vue {
   }
 
   saveRecords(): void {
-    store.createRecord(this.record);
+    this.$store.commit('createRecord', this.record);
   }
 
   goBack(): void {
