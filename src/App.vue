@@ -1,8 +1,33 @@
 <template>
   <div>
-    <router-view/>
+    <router-view :style="autoHeight"/>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+let windowHeight = window.innerHeight;
+
+@Component
+export default class App extends Vue {
+  windowHeight = windowHeight;
+  autoHeight = {
+    height: ''
+  };
+
+  getHeight(): void {
+    this.autoHeight.height = windowHeight + 'px';
+  }
+
+  created(): void {
+    window.addEventListener('resize', this.getHeight);
+    this.getHeight();
+  }
+
+}
+</script>
 
 <style lang="scss">
 @import "./assets/style/reset.scss";

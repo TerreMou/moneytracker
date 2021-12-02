@@ -8,16 +8,21 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Layout'
-};
+import Vue from 'vue'
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Layout extends Vue {
+  @Prop({type: String, default: '100vh'})
+  minHeight!: string
+}
 </script>
 
 <style lang="scss" scoped>
 .layout-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  //min-height: 100vh;
 }
 .content {
   overflow: auto;

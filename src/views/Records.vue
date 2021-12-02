@@ -18,7 +18,7 @@ import Vue from 'vue';
 import NumberPad from '@/components/Records/Number-pad.vue';
 import FormItem from '@/components/Records/FormItem.vue';
 import Tags from '@/components/Records/Tags.vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import NavBar from '@/components/NavBar.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
@@ -66,7 +66,7 @@ export default class Records extends Vue {
 .records-wrapper {
   display: flex;
   flex-direction: column-reverse;
-  min-height: 100vh;
+  //min-height: 100vh;
 }
 
 .form-wrapper {
