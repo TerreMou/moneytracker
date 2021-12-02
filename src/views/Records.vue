@@ -7,7 +7,8 @@
       <FormItem placeholder="请输入备注" @update:value="onUpdateComments"/>
     </div>
     <Tags/>
-    <Types :value.sync="record.type"/>
+    <Tabs :data-source="recordTypeList"
+          :value.sync="record.type"/>
     <NavBar>记账</NavBar>
   </div>
 </template>
@@ -20,21 +21,25 @@ import Tags from '@/components/Records/Tags.vue';
 import Types from '@/components/Records/Types.vue';
 import {Component} from 'vue-property-decorator';
 import NavBar from '@/components/NavBar.vue';
+import recordTypeList from '@/constants/recordTypeList';
+import Tabs from '@/components/Tabs.vue';
 
 @Component({
-  components: {NavBar, Types, Tags, FormItem, NumberPad},
+  components: {Tabs, NavBar, Types, Tags, FormItem, NumberPad},
 })
 export default class Records extends Vue {
   record: RecordItem = {
     type: '-', tags: [], comments: '', amount: 0
   };
 
+  recordTypeList = recordTypeList;
+
   get recordList(): RecordItem[] {
     return this.$store.state.recordList;
   }
 
   created(): void {
-    this.$store.commit('fetchRecords')
+    this.$store.commit('fetchRecords');
   }
 
   onUpdateComments(value: string): void {
