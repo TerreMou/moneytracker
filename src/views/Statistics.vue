@@ -13,8 +13,9 @@
 <style scoped lang="scss">
 @import "../assets/style/helper.scss";
 
-::v-deep .type-tabs-item {
+::v-deep li.type-tabs-item {
   background: white;
+  height: 52px;
 
   &.selected {
     background: $color-highlight;
