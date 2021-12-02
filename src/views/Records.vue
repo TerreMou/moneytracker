@@ -18,14 +18,13 @@ import Vue from 'vue';
 import NumberPad from '@/components/Records/Number-pad.vue';
 import FormItem from '@/components/Records/FormItem.vue';
 import Tags from '@/components/Records/Tags.vue';
-import Types from '@/components/Records/Types.vue';
 import {Component} from 'vue-property-decorator';
 import NavBar from '@/components/NavBar.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import Tabs from '@/components/Tabs.vue';
 
 @Component({
-  components: {Tabs, NavBar, Types, Tags, FormItem, NumberPad},
+  components: {Tabs, NavBar, Tags, FormItem, NumberPad},
 })
 export default class Records extends Vue {
   record: RecordItem = {
