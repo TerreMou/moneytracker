@@ -3,7 +3,7 @@ type RecordItem = {
   comments: string
   amount: number
   createdTime?: string
-  tags: string[]
+  tags: Tag[]
 }
 type Tag = {
   id: string;
