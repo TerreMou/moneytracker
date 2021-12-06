@@ -2,7 +2,7 @@ type RecordItem = {
   type: string
   comments: string
   amount: number
-  createdTime?: Date
+  createdTime?: string
   tags: string[]
 }
 type Tag = {

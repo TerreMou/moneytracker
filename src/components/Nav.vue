@@ -1,20 +1,17 @@
 <template>
   <div class="navLarge">
-      <router-link to="/records" class="item2">
-        <Icon name="record"/>
-      </router-link>
     <nav>
-      <router-link to="/labels" class="item" active-class="selected">
-        <Icon name="labels"/>
-        明细
-      </router-link>
       <router-link to="/statistics" class="item" active-class="selected">
         <Icon name="statistics"/>
         统计
       </router-link>
-      <router-link to="/myself" class="item" active-class="selected">
-        <Icon name="myself"/>
-        我的
+      <router-link to="/records" class="item" active-class="selected">
+        <Icon name="record"/>
+        记账
+      </router-link>
+      <router-link to="/labels" class="item" active-class="selected">
+        <Icon name="labels"/>
+        标签
       </router-link>
     </nav>
   </div>
@@ -29,23 +26,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/style/helper.scss";
-
-.navLarge {
-  display: flex;
-  flex-direction: column;
-  > .item2 {
-    .icon {
-      width: 50px;
-      height: 50px;
-      margin-right: 16px;
-      margin-bottom: 14px;
-      color: $color-highlight;
-    }
-  }
-}
-.item2:first-child {
-  align-self: flex-end;
-}
 
 nav {
   @extend %outerShadow;

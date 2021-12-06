@@ -1,16 +1,21 @@
 <template>
-  <div class="records-wrapper">
+  <Layout class-prefix="layout">
+
     <Number-pad @update:value="onUpdateAmount"
                 @submit="saveRecords"
                 @back="goBack"/>
     <div class="form-wrapper">
       <FormItem placeholder="请输入备注" @update:value="onUpdateComments"/>
     </div>
-    <Tags/>
+    <div class="tags-wrapper">
+      <Tags/>
+    </div>
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
     <NavBar>记账</NavBar>
-  </div>
+
+
+  </Layout>
 </template>
 
 <script lang="ts">
@@ -63,13 +68,18 @@ export default class Records extends Vue {
 <style lang="scss" scoped>
 @import "../assets/style/helper.scss";
 
-.records-wrapper {
+::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
-  //min-height: 100vh;
+
 }
 
 .form-wrapper {
   padding: 4px 0;
+}
+
+.tags-wrapper {
+  flex-grow: 1;
+  background: white;
 }
 </style>

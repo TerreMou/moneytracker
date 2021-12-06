@@ -1,9 +1,8 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
-import Records from '@/views/Records.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
-import Myself from '@/views/Myself.vue';
+import RecordsNew from '@/views/RecordsNew.vue';
 import NotFound from '@/views/NotFound.vue';
 import EditLabel from '@/views/EditLabel.vue';
 
@@ -13,12 +12,7 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    redirect: '/labels'
-  },
-  {
-    path: '/records',
-    name: 'Records',
-    component: Records
+    redirect: '/records'
   },
   {
     path: '/labels',
@@ -31,9 +25,9 @@ const routes: Array<RouteConfig> = [
     component: Statistics
   },
   {
-    path: '/myself',
-    name: 'Myself',
-    component: Myself
+    path: '/records',
+    name: 'Records',
+    component: RecordsNew
   },
   {
     path: '/labels/edit/:id',
