@@ -119,19 +119,19 @@ export default class Statistics extends Vue {
   background: white;
 }
 
-::v-deep li.type-tabs-item {
-  background: #f5f5f5;
-  height: 52px;
-
-  &.selected {
-    background: $color-highlight;
-    color: white;
-
-    &::after {
-      display: none;
-    }
-  }
-}
+//::v-deep li.type-tabs-item {
+//  background: #f5f5f5;
+//  height: 52px;
+//
+//  &.selected {
+//    background: $color-highlight;
+//    color: white;
+//
+//    &::after {
+//      display: none;
+//    }
+//  }
+//}
 
 .comments {
   margin-right: auto;

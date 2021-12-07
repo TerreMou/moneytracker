@@ -1,16 +1,19 @@
 <template>
-  <ul class="tags">
-    <li v-for="tag in tagList" :key="tag.id"
-        :class=" {selected: selectedTags.indexOf(tag)>=0} "
-        @click="toggle(tag)">
-      {{ tag.name }}
-    </li>
-    <li>
-      <button @click="createTag" class="add">
-        <Icon name="add"/>
+  <div class="tags">
+    <div class="new">
+      <button @click="createTag" >
+        <Icon name="add"/>新增标签
       </button>
-    </li>
-  </ul>
+    </div>
+
+    <ul class="current">
+      <li v-for="tag in tagList" :key="tag.id"
+          :class=" {selected: selectedTags.indexOf(tag)>=0} "
+          @click="toggle(tag)">
+        {{ tag.name }}
+      </li>
+    </ul>
+  </div>
 
 </template>
 
@@ -48,45 +51,40 @@ export default class Tags extends mixins(TagHelper) {
 @import "../../assets/style/helper.scss";
 
 .tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-grow: 1;
-  padding: 16px;
-  font-size: 14px;
   background: white;
-
-  > li {
-    height: 48px;
+  font-size: 16px;
+  padding: 10px 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  > .current {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 20px;
-    padding: 0 16px;
-    margin-right: 20px;
-    margin-top: 4px;
-    border-radius: 50%;
-    background: #d5d8dc;
-
-    &.selected {
-      background: $color-highlight;
-      color: white;
+    flex-wrap: wrap;
+    > li {
+      $bg: #D9D9D9;
+      background: $bg;
+      $h: 24px;
+      height: $h;
+      line-height: $h;
+      border-radius: $h/2;
+      padding: 0 16px;
+      margin-right: 12px;
+      margin-top: 10px;
+      &.selected {
+        background: $color-highlight;
+        color: white;
+      }
     }
-
   }
+  > .new {
+    padding-top: 16px;
+    button {
+      background: transparent;
+      border: none;
+      color: #999;
+      border-bottom: 1px solid;
+      padding: 0 4px;
 
-  .add {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: transparent;
-    border: none;
-    color: #333;
-
-    > .icon {
-      width: 28px;
-      height: 28px;
     }
   }
 }

@@ -12,10 +12,8 @@
       <Tags @update:value="record.tags = $event"/>
     </div>
     <Tabs :data-source="recordTypeList"
-          :value.sync="record.type"/>
-    <NavBar>记账</NavBar>
-
-
+          :value.sync="record.type"
+          class-prefix="recordType"/>
   </Layout>
 </template>
 
