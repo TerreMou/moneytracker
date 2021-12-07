@@ -19,7 +19,10 @@ export default class Layout extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/style/helper.scss";
+
 .layout-wrapper {
+  @extend %outerShadow;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
