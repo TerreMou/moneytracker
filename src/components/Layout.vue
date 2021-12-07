@@ -15,8 +15,6 @@ import {Component, Prop} from 'vue-property-decorator';
 export default class Layout extends Vue {
   @Prop(String) classPrefix?: string;
 
-  @Prop({type: String, default: '100vh'})
-  minHeight!: string;
 }
 </script>
 
@@ -24,7 +22,7 @@ export default class Layout extends Vue {
 .layout-wrapper {
   display: flex;
   flex-direction: column;
-  //min-height: 100vh;
+  min-height: 100vh;
 }
 
 .content {
