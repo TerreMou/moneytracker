@@ -5,10 +5,11 @@
                 @submit="saveRecords"
                 @back="goBack"/>
     <div class="form-wrapper">
-      <FormItem placeholder="请输入备注" @update:value="onUpdateComments"/>
+      <FormItem placeholder="请输入备注"
+                :value.sync="record.comments"/>
     </div>
     <div class="tags-wrapper">
-      <Tags/>
+      <Tags @update:value="record.tags = $event"/>
     </div>
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
@@ -55,7 +56,16 @@ export default class Records extends Vue {
   }
 
   saveRecords(): void {
+    if (!this.record.tags || this.record.tags.length === 0) {
+      window.alert('请至少选择一个标签');
+      return;
+    }
+
     this.$store.commit('createRecord', this.record);
+    if (this.$store.state.createRecordError === null) {
+      window.alert('已保存');
+      this.record.comments = '';
+    }
   }
 
   goBack(): void {
