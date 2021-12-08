@@ -1,7 +1,9 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-    <Chart :options="x"/>
+    <div class="chart-wrapper" ref="chartWrapper">
+      <Chart class="chart" :options="x"/>
+    </div>
     <ol v-if="groupedList.length > 0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">{{ beautify(group.title) }} <span class="total-amount">￥{{ group.total }}</span></h3>
@@ -38,23 +40,12 @@ type Result = { title: string, total?: number, items: RecordItem[] }[]
 })
 export default class Statistics extends Vue {
 
-  get x() {
-    return {
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [{
-        data: [100, 200, 300, 400, 200, 100, 900],
-        type: 'line'
-      }],
-      tooltip: {
-        show: true
-      },
-    };
+  mounted() {
+    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999;
+  }
+
+  tagString(tags: Tag[]): string {
+    return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
   }
 
   beautify(string: string): string {
@@ -73,8 +64,40 @@ export default class Statistics extends Vue {
     }
   }
 
-  tagString(tags: Tag[]): string {
-    return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
+  get x() {
+    return {
+      grid: {
+        left: 0,
+        right: 0,
+      },
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        axisTick: {
+          alignWithLabel: true, // 横轴刻度和坐标对齐
+        },
+        axisLine: {
+          lineStyle: {color: '#666'}
+        }
+      },
+      yAxis: {
+        type: 'value',
+        show: false
+      },
+      series: [{
+        data: [100, 200, 300, 400, 200, 100, 900],
+        type: 'line',
+        symbolSize: 12,
+        itemStyle: {borderWidth: 1, color: '$color-line'},
+        // symbol: 'circle',
+      }],
+      tooltip: {
+        show: true,
+        position: 'top',
+        formatter: '{c}',
+        // triggerOn: 'click',
+      },
+    };
   }
 
   get recordList(): RecordItem[] {
@@ -116,6 +139,17 @@ export default class Statistics extends Vue {
 
 <style scoped lang="scss">
 @import "../assets/style/helper.scss";
+
+.chart {
+  width: 430%;
+
+  &-wrapper {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
 
 .noResult {
   padding: 16px;

@@ -35,7 +35,7 @@ nav {
 
 
   > .item {
-    padding: 2px 0;
+    padding: 4px 0;
     width: 33.33333%;
     display: flex;
     justify-content: center;
