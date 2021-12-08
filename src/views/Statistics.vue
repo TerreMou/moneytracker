@@ -1,10 +1,10 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-
+    <Chart :options="x"/>
     <ol v-if="groupedList.length > 0">
       <li v-for="(group, index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
+        <h3 class="title">{{ beautify(group.title) }} <span class="total-amount">￥{{ group.total }}</span></h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
               class="record">
@@ -29,12 +29,33 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import Chart from '@/components/Chart.vue';
+
 type Result = { title: string, total?: number, items: RecordItem[] }[]
 
 @Component({
-  components: {Tabs},
+  components: {Tabs, Chart},
 })
 export default class Statistics extends Vue {
+
+  get x() {
+    return {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [100, 200, 300, 400, 200, 100, 900],
+        type: 'line'
+      }],
+      tooltip: {
+        show: true
+      },
+    };
+  }
 
   beautify(string: string): string {
     const now = dayjs();
@@ -112,6 +133,10 @@ export default class Statistics extends Vue {
 .title {
   @extend %item;
   background: #f5f5f5;
+
+  .total-amount {
+    color: $color-highlight;
+  }
 }
 
 .record {

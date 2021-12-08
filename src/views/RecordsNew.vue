@@ -5,15 +5,14 @@
                 @submit="saveRecords"
                 @back="goBack"/>
     <div class="createdAt">
-      {{ record.createdTime }}
       <FormItem placeholder="请输入日期"
                 type="date"
-                field-name="日期"
+                class-prefix="record"
                 :value.sync="record.createdTime"/>
     </div>
-    <div class="form-wrapper">
+    <div class="comments">
       <FormItem placeholder="请输入备注"
-                field-name="备注"
+                class-prefix="record"
                 :value.sync="record.comments"/>
     </div>
     <div class="tags-wrapper">
@@ -87,11 +86,18 @@ export default class Records extends Vue {
 ::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
+}
+
+::v-deep .record-formItem {
 
 }
 
-.form-wrapper {
-  padding: 4px 0;
+.createdAt {
+  padding: 2px 0;
+}
+
+.comments {
+  padding: 2px 0;
 }
 
 .tags-wrapper {

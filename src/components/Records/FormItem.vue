@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label class="formItem">
+    <label class="formItem" :class="classPrefix && `${classPrefix}-formItem`">
       <span class="field-name">{{ this.fieldName }}</span>
       <template v-if="type === 'date'">
         <input :type="type || 'text'"
@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import dayjs from 'dayjs';
 
 @Component
@@ -30,12 +30,13 @@ export default class FormItem extends Vue {
   @Prop() fieldName?: string;
   @Prop() placeholder?: string;
   @Prop() type?: string;
+  @Prop(String) classPrefix?: string;
 
   onValueChanged(value: string): void {
     this.$emit('update:value', value);
   }
 
-  x(isoString: string) {
+  x(isoString: string): string {
     return dayjs(isoString).format('YYYY-MM-DD');
   }
 }
