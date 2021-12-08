@@ -4,8 +4,16 @@
     <Number-pad @update:value="onUpdateAmount"
                 @submit="saveRecords"
                 @back="goBack"/>
+    <div class="createdAt">
+      {{ record.createdTime }}
+      <FormItem placeholder="请输入日期"
+                type="date"
+                field-name="日期"
+                :value.sync="record.createdTime"/>
+    </div>
     <div class="form-wrapper">
       <FormItem placeholder="请输入备注"
+                field-name="备注"
                 :value.sync="record.comments"/>
     </div>
     <div class="tags-wrapper">
@@ -32,7 +40,7 @@ import Tabs from '@/components/Tabs.vue';
 })
 export default class Records extends Vue {
   record: RecordItem = {
-    type: '-', tags: [], comments: '', amount: 0
+    type: '-', tags: [], comments: '', amount: 0, createdTime: new Date().toISOString()
   };
 
   recordTypeList = recordTypeList;
