@@ -32,6 +32,7 @@ import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import Chart from '@/components/Chart.vue';
+import _ from 'lodash';
 
 type Result = { title: string, total?: number, items: RecordItem[] }[]
 
@@ -40,8 +41,9 @@ type Result = { title: string, total?: number, items: RecordItem[] }[]
 })
 export default class Statistics extends Vue {
 
-  mounted() {
-    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999;
+  mounted(): void {
+    const div = (this.$refs.chartWrapper as HTMLDivElement);
+    div.scrollLeft = div.scrollWidth;
   }
 
   tagString(tags: Tag[]): string {
@@ -64,7 +66,34 @@ export default class Statistics extends Vue {
     }
   }
 
+  get y(): { date:string,value:number }[] {
+    const today = new Date();
+    const array = [];
+    for (let i = 0; i <= 29; i++) {
+      const dateString = dayjs(today)
+          .subtract(i, 'day').format('YYYY-MM-DD');
+      const found = _.find(this.recordList, {
+        createdTime: dateString
+      });
+      array.push({
+        date: dateString, value: found ? found.amount : 0
+      });
+    }
+    array.sort((a, b) => { //字符串只能比较大小，不能相减
+      if (a.date > b.date) {
+        return 1;
+      } else if (a.date === b.date) {
+        return 0;
+      } else {
+        return -1;
+      }
+    });
+    return array;
+  }
+
   get x() {
+    const keys = this.y.map(item => item.date);
+    const values = this.y.map(item => item.value);
     return {
       grid: {
         left: 0,
@@ -72,7 +101,7 @@ export default class Statistics extends Vue {
       },
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        data: keys,
         axisTick: {
           alignWithLabel: true, // 横轴刻度和坐标对齐
         },
@@ -85,7 +114,7 @@ export default class Statistics extends Vue {
         show: false
       },
       series: [{
-        data: [100, 200, 300, 400, 200, 100, 900],
+        data: values,
         type: 'line',
         symbolSize: 12,
         itemStyle: {borderWidth: 1, color: '$color-line'},
@@ -95,7 +124,7 @@ export default class Statistics extends Vue {
         show: true,
         position: 'top',
         formatter: '{c}',
-        // triggerOn: 'click',
+        triggerOn: 'click',
       },
     };
   }
@@ -145,6 +174,7 @@ export default class Statistics extends Vue {
 
   &-wrapper {
     overflow: auto;
+
     &::-webkit-scrollbar {
       display: none;
     }
