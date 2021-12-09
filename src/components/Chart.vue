@@ -5,21 +5,27 @@
 <script lang="ts">
 import Vue from 'vue';
 import echarts, {EChartOption} from 'echarts';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Chart extends Vue {
-  @Prop() options?: EChartOption
+  @Prop() options?: EChartOption;
+  chart?: echarts.ECharts;
 
-  mounted(){
-    if(this.options === undefined) {
-      console.log('options 为空');
-      return
+  mounted() {
+    if (this.options === undefined) {
+      console.error('options 为空');
+      return;
     }
-    const chart = echarts.init(this.$refs.wrapper as HTMLDivElement)
-    chart.setOption(this.options)
+    this.chart = echarts.init(this.$refs.wrapper as HTMLDivElement);
+    this.chart.setOption(this.options);
+  }
 
-
+  @Watch('options')
+  onOptionsChange(newValue: EChartOption): void {
+    if (this.chart) {
+      this.chart.setOption(newValue);
+    }
   }
 
 
@@ -27,7 +33,7 @@ export default class Chart extends Vue {
 </script>
 
 <style scoped lang="scss">
-  .wrapper {
-    height: 400px;
-  }
+.wrapper {
+  height: 400px;
+}
 </style>

@@ -66,17 +66,18 @@ export default class Statistics extends Vue {
     }
   }
 
-  get dateValueList(): { date:string,value:number }[] {
+  get dateValueList(): { date: string, value: number | undefined }[] {
     const today = new Date();
     const array = [];
+
     for (let i = 0; i <= 29; i++) {
       const dateString = dayjs(today)
-          .subtract(i, 'day').format('YYYY-MM-DD');
-      const found = _.find(this.recordList, {
-        createdTime: dateString
+          .subtract(i, 'day').format('YYYY-M-D');
+      const found = _.find(this.groupedList, {
+        title: dateString
       });
       array.push({
-        date: dateString, value: found ? found.amount : 0
+        date: dateString, value: found ? found.total : 0
       });
     }
     array.sort((a, b) => { //字符串只能比较大小，不能相减
@@ -110,7 +111,7 @@ export default class Statistics extends Vue {
         },
         axisLabel: {
           formatter: function (value: string) {
-            return value.substring(5)
+            return value.substring(5);
           }
         }
       },
