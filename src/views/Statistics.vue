@@ -2,7 +2,7 @@
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <div class="chart-wrapper" ref="chartWrapper">
-      <Chart class="chart" :options="x"/>
+      <Chart class="chart" :options="chartOptions"/>
     </div>
     <ol v-if="groupedList.length > 0">
       <li v-for="(group, index) in groupedList" :key="index">
@@ -66,7 +66,7 @@ export default class Statistics extends Vue {
     }
   }
 
-  get y(): { date:string,value:number }[] {
+  get dateValueList(): { date:string,value:number }[] {
     const today = new Date();
     const array = [];
     for (let i = 0; i <= 29; i++) {
@@ -91,9 +91,9 @@ export default class Statistics extends Vue {
     return array;
   }
 
-  get x() {
-    const keys = this.y.map(item => item.date);
-    const values = this.y.map(item => item.value);
+  get chartOptions() {
+    const keys = this.dateValueList.map(item => item.date);
+    const values = this.dateValueList.map(item => item.value);
     return {
       grid: {
         left: 0,
@@ -107,6 +107,11 @@ export default class Statistics extends Vue {
         },
         axisLine: {
           lineStyle: {color: '#666'}
+        },
+        axisLabel: {
+          formatter: function (value: string) {
+            return value.substring(5)
+          }
         }
       },
       yAxis: {
