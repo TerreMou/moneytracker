@@ -7,7 +7,10 @@
     <div class="list">
       <ol v-if="groupedList.length > 0">
         <li v-for="(group, index) in groupedList" :key="index">
-          <h3 class="title">{{ beautify(group.title) }} <span class="total-amount">￥{{ group.total }}</span></h3>
+          <h3 class="title">
+            {{ beautify(group.title) }}
+            <span class="total-amount">￥{{ group.total }}</span>
+          </h3>
           <ol>
             <li v-for="item in group.items" :key="item.id"
                 class="record">
@@ -75,7 +78,7 @@ export default class Statistics extends Vue {
 
     for (let i = 0; i <= 29; i++) {
       const dateString = dayjs(today)
-          .subtract(i, 'day').format('YYYY-M-D');
+          .subtract(i, 'day').format('YYYY-MM-DD');
       const found = _.find(this.groupedList, {
         title: dateString
       });
