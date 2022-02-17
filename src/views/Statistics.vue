@@ -153,14 +153,14 @@ export default class Statistics extends Vue {
         .filter(r => r.type === this.type)
         .sort((a, b) => dayjs(b.createdTime).valueOf() - dayjs(a.createdTime).valueOf());
     if (newList.length === 0) {return [] as Result; }
-    const result: Result = [{title: dayjs(newList[0].createdTime).format('YYYY-M-D'), items: [newList[0]]}];
+    const result: Result = [{title: dayjs(newList[0].createdTime).format('YYYY-MM-DD'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
       if (dayjs(last.title).isSame(dayjs(current.createdTime), 'day')) {
         last.items.push(current);
       } else {
-        result.push({title: dayjs(current.createdTime).format('YYYY-M-D'), items: [current]});
+        result.push({title: dayjs(current.createdTime).format('YYYY-MM-DD'), items: [current]});
       }
     }
     result.forEach(group => {
